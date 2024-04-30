@@ -1,5 +1,7 @@
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
+const connectToDatabase = require('../models/db');
+
 router.get('/', async (req, res) => {
     try {
         const db = await connectToDatabase();
@@ -17,7 +19,7 @@ router.get('/:id', async (req, res) => {
         const db = await connectToDatabase();
         const collection = db.collection("gifts");
         const id = req.params.id;
-        gift = collection.findOne({"id":id})
+        gift = await collection.findOne({"id":id})
         if (!gift) {
             return res.status(404).send('Gift not found');
         }
