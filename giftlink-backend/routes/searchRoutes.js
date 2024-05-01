@@ -3,7 +3,7 @@ const router = express.Router();
 const connectToDatabase = require('../models/db');
 
 // Search for gifts
-router.get('/', async (req, res, next) => {
+router.get('', async (req, res, next) => {
     try {
         // Task 1: Connect to MongoDB using connectToDatabase database. Remember to use the await keyword and store the connection in `db`
         const db = await connectToDatabase()
@@ -20,16 +20,18 @@ router.get('/', async (req, res, next) => {
         // Task 3: Add other filters to the query
         if (req.query.category&& req.query.name.trim() !== '') {
             query.category = req.query.category;
+            console.log(query.category)
         }
         if (req.query.condition) {
             query.condition = req.query.condition;
+            console.log(query.condition)
         }
         if (req.query.age_years) {
             query.age_years = { $lte: parseInt(req.query.age_years) };
         }
 
         // Task 4: Fetch filtered gifts using the find(query) method. Make sure to use await and store the result in the `gifts` constant
-        gifts = await collection.findMany({name: query.name, category: query.category, condition: query.condition, condition: query.age_years}).toArray();
+        gifts = await collection.find({name: query.name, category: query.category, condition: query.condition, age_years: query.age_years}).toArray();
 
         res.json(gifts);
     } catch (e) {

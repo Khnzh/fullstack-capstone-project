@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {urlConfig} from '../../config';
+// import {urlConfig} from '../../config';
 
 function MainPage() {
     const [gifts, setGifts] = useState([]);
@@ -10,7 +10,7 @@ function MainPage() {
         // Task 1: Write async fetch operation
         const fetchGifts = async() => {
             try{
-                let url =`${urlConfig.backendUrl}/api/gifts`;
+                let url =`http://localhost:3060/api/gifts`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`Http error, ${response.status}`)
@@ -27,7 +27,7 @@ function MainPage() {
     // Task 2: Navigate to details page
     const goToDetailsPage = (productId) => {
         // Write your code below this line
-        navigate(`/ap/product/${productId}`)
+        navigate(`/app/product/${productId}`)
 
       };
 
