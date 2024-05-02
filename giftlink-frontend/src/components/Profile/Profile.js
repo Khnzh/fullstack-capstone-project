@@ -64,19 +64,22 @@ const handleSubmit = async (e) => {
     }
 
     const payload = { ...updatedDetails };
-    const response = await fetch(`${urlConfig.backendUrl}/api/auth/update`, {
-      //Step 1: Task 1
-      //Step 1: Task 2
-      //Step 1: Task 3
-    });
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/update`,{
+      
+      method: 'PUT',
+      headers: {
+        "Authorization" : `Bearer ${authtoken}`,
+        "Content-Type":"application/json",
+        "email" : email
+      },
+      body: JSON.stringify(payload)
+    })
 
     if (response.ok) {
       // Update the user details in session storage
-      //Step 1: Task 4
-      //Step 1: Task 5
+      setUserName(updatedDetails.name);
       setUserDetails(updatedDetails);
-      setEditMode(false);
-      // Display success message to the user
+      sessionStorage.setItem(updatedDetails.name)
       setChanged("Name Changed Successfully!");
       setTimeout(() => {
         setChanged("");
