@@ -51,7 +51,8 @@ function LoginPage() {
                 }, 2000);
               }
               if (json.error) {
-                setShowerr(json.error);
+                
+                console.log ("Error showing response: " + json.error)
             }
         } catch(e) {
             console.log ("Error showing response: " + e)
