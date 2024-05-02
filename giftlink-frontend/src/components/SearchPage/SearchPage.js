@@ -14,7 +14,7 @@ function SearchPage() {
         // fetch all products
         const fetchProducts = async () => {
             try {
-                let url = `http://localhost:3060/api/gifts`
+                let url = `${process.env.REACT_APP_BACKEND_URL}/api/gifts`
                 console.log(url)
                 const response = await fetch(url);
                 if (!response.ok) {

@@ -10,7 +10,7 @@ function MainPage() {
         // Task 1: Write async fetch operation
         const fetchGifts = async() => {
             try{
-                let url =`http://localhost:3060/api/gifts`;
+                let url =`${process.env.REACT_APP_BACKEND_URL}/api/gifts`;
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`Http error, ${response.status}`)
