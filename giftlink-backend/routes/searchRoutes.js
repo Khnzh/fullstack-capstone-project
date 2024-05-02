@@ -1,3 +1,4 @@
+/*jshint esversion: 8 */
 const express = require('express');
 const router = express.Router();
 const connectToDatabase = require('../models/db');
@@ -6,7 +7,7 @@ const connectToDatabase = require('../models/db');
 router.get('', async (req, res, next) => {
     try {
         // Task 1: Connect to MongoDB using connectToDatabase database. Remember to use the await keyword and store the connection in `db`
-        const db = await connectToDatabase()
+        const db = await connectToDatabase();
         const collection = db.collection("gifts");
 
         // Initialize the query object
@@ -20,11 +21,11 @@ router.get('', async (req, res, next) => {
         // Task 3: Add other filters to the query
         if (req.query.category&& req.query.name.trim() !== '') {
             query.category = req.query.category;
-            console.log(query.category)
+            console.log(query.category);
         }
         if (req.query.condition) {
             query.condition = req.query.condition;
-            console.log(query.condition)
+            console.log(query.condition);
         }
         if (req.query.age_years) {
             query.age_years = { $lte: parseInt(req.query.age_years) };
