@@ -11,10 +11,11 @@ export default function Navbar() {
         const authTokenFromSession = sessionStorage.getItem("auth-token")
         const nameFromSession = sessionStorage.getItem("name")
         if (authTokenFromSession) {
-            if (nameFromSession&&isLoggedIn) {
+            if (nameFromSession) {
                 setUserName(nameFromSession)
+                setIsLoggedIn(true);
             } else {
-                sessionStorage.removeItem("authtoken");
+                sessionStorage.removeItem("auth-token");
                 sessionStorage.removeItem("name");
                 sessionStorage.removeItem("email");
                 setIsLoggedIn(false);

@@ -53,20 +53,22 @@ router.post('/login', async (req, res) => {
         const email = req.body.email
         const user = await collection.findOne({ email: email });
         if (!user){
-            return res.status(401).send('Invalid credentials');
+            return res.status(401).send({ error: 'user is not there' });;
         }
         const correctPassword = await bcryptjs.compare(req.body.password, user.password);
             if (!correctPassword){
-                return res.status(401).send('passwords do not match');
+                logger.error('Passwords do not match');
+                return res.status(401).send({ error: 'pasword is not there' });
             }
             const payload = {
                 user: {
                     id: user.insertedId,
                 },
             };
+            const name = user.firstName
             const authtoken = jwt.sign(payload, JWT_SECRET);
             logger.info('User blogged in successfully');
-            res.json({authtoken, email});
+            res.json({authtoken, email, name});
     } catch (e) {
          return res.status(500).send('Internal server error');
     }
