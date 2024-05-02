@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
         const db = await connectToDatabase();
         const collection = db.collection("gifts");
         const id = req.params.id;
-        gift = await collection.findOne({"id":id})
+        gift = await collection.findOne({"id":id});
         if (!gift) {
             return res.status(404).send('Gift not found');
         }
