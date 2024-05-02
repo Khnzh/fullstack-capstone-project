@@ -10,6 +10,7 @@ function LoginPage() {
     const [incorrect, setIncorrect] = useState('')
 
     const navigate = useNavigate()
+    const bearerToken = sessionStorage.getItem('bearer-token');
     const { setIsLoggedIn } = useAppContext();
 
     useEffect(() => {
@@ -25,7 +26,10 @@ function LoginPage() {
         try {
         response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`,{
             method: 'POST',
-            headers: {'content-type' : 'application/json'},
+            headers: {
+              'content-type' : 'application/json',
+              'Authorization' : bearerToken ? `Bearer ${bearerToken}` : '',
+            },
             body: JSON.stringify({
                 email: email,
                 password: password,
